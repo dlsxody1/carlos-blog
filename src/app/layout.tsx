@@ -1,6 +1,9 @@
-import { Header } from "@/stories/Header";
 import "./globals.css";
+import { Noto_Sans_KR } from "next/font/google";
+import Header from "./components/Header";
+import Nav from "./components/Nav";
 
+const KR = Noto_Sans_KR({ weight: "300", display: "swap", subsets: ["latin"] });
 export default function RootLayout({
   children,
 }: {
@@ -8,7 +11,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={KR.className}>
+        <Header />
+
+        {children}
+      </body>
     </html>
   );
 }
