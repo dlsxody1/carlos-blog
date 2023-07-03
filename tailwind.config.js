@@ -13,6 +13,10 @@ module.exports = {
       width: {
         inputWidth: "450px",
       },
+      height: {
+        navHeight: "50vh",
+        screenHeight: "100vh",
+      },
       fontSize: {
         defaultFontSize: "16px",
         middlFontSize: "24px",
