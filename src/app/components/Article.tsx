@@ -1,7 +1,12 @@
 import React from "react";
+import { supabase } from "../lib/supabase";
 
-const Article = () => {
-  return <div>메인페이지</div>;
+const Article = async () => {
+  return (
+    <div className="w-full h-screenHeight bg-stone-300 ">
+      <div>hi33</div>
+    </div>
+  );
 };
 
 export default Article;

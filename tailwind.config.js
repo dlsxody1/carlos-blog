@@ -12,10 +12,12 @@ module.exports = {
       },
       width: {
         inputWidth: "450px",
+        formWidth: "700px",
       },
       height: {
         navHeight: "50vh",
         screenHeight: "100vh",
+        formHeight: "700px",
       },
       fontSize: {
         defaultFontSize: "16px",

@@ -17,9 +17,8 @@ export default function RootLayout({
         <Header />
         <div className="flex">
           <Nav />
-          <Article />
+          <Providers>{children}</Providers>
         </div>
-        <Providers>{children}</Providers>
       </body>
     </html>
   );
