@@ -13,16 +13,19 @@ module.exports = {
       width: {
         inputWidth: "450px",
         formWidth: "700px",
+        imageWidth: "20%",
       },
       height: {
         navHeight: "50vh",
         screenHeight: "100vh",
         formHeight: "700px",
+        imageHeight: "80%",
       },
       fontSize: {
         defaultFontSize: "16px",
         middlFontSize: "24px",
         largeFontSize: "32px",
+        titleFontSize: "48px",
       },
       borderColor: {
         headerColor: "#D4DAE1",
