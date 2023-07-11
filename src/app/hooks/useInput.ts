@@ -11,7 +11,7 @@ export async function signInWithEmail(managerIntfo: ManagerProps) {
       password: managerIntfo.password,
     });
     console.log("redirect 해볼게 얍");
-    redirect("http://localhost:3000/login/write");
+    
   } catch (err) {
     alert(err);
   }
