@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       backgroundColor: {
         defaultHeader: "#F6F8FA",
+        blogColor: "#FBFDFC",
       },
       width: {
         inputWidth: "450px",
@@ -22,7 +23,7 @@ module.exports = {
         imageHeight: "80%",
       },
       fontSize: {
-        defaultFontSize: "16px",
+        defaultFontSize: "20px",
         middlFontSize: "24px",
         largeFontSize: "32px",
         titleFontSize: "48px",

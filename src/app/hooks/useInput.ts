@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
-import { ManagerProps } from "../types/ManagerProps";
+import { ManagerProps, CategoryProps } from "../types/InputValueProps";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/router";
 
@@ -11,13 +11,12 @@ export async function signInWithEmail(managerIntfo: ManagerProps) {
       password: managerIntfo.password,
     });
     console.log("redirect 해볼게 얍");
-    
   } catch (err) {
     alert(err);
   }
 }
 
-export const useInput = (state: ManagerProps) => {
+export const useInput = (state: ManagerProps | CategoryProps) => {
   const [values, setValues] = useState(state);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
