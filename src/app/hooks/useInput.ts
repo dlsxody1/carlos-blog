@@ -3,6 +3,7 @@ import { supabase } from "../lib/supabase";
 import { ManagerProps, CategoryProps } from "../types/InputValueProps";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/router";
+import { type } from "os";
 
 export async function signInWithEmail(managerIntfo: ManagerProps) {
   try {
@@ -22,6 +23,16 @@ export const useInput = (state: ManagerProps | CategoryProps) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
+    // 조건부를 넣어볼 것.
+    // if(typeof state === "string"){
+    //   setValues(e.target.value);
+    // }else if("email" in state && "password" in state){
+    //   setValues((prevValues) => ({
+    //     ...prevValues,
+    //     [name]: value,
+    //   }));
+    // }
+
     console.log(values);
   };
 

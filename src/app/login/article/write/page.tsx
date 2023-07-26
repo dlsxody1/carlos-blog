@@ -1,5 +1,5 @@
 "use client";
-import { useInput } from "@/app/hooks/useInput";
+import BlogEditor from "@/app/components/BlogEditor";
 import { CategoryProps } from "@/app/types/InputValueProps";
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 const Page = () => {
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState<CategoryProps[]>([]);
+  const [htmlStr, setHtmlStr] = useState<string>("");
 
   const addCategory = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -25,7 +26,7 @@ const Page = () => {
           name="title"
         ></textarea>
         <input
-          className="h-16 mb-8 pl-6 text-middlFontSize"
+          className="h-16  pl-6 text-middlFontSize"
           type="text"
           placeholder="카테고리를 입력하세요"
           name="category"
@@ -33,7 +34,7 @@ const Page = () => {
           onChange={(e) => setCategory(e.target.value)}
           onKeyDown={(e) => addCategory(e)}
         />
-        <div className="flex m-5">
+        <div className="flex m-5 mb-24">
           {categories?.map(({ category }) => {
             return (
               <div key={uuidv4()}>
@@ -44,12 +45,19 @@ const Page = () => {
             );
           })}
         </div>
-        <div>Toolbox</div>
-        <textarea
-          name="content"
+        <div className="">
+          {" "}
+          <BlogEditor htmlStr={htmlStr} setHtmlStr={setHtmlStr} />
+        </div>
+
+        {/* 
+        <BlogEditor />
+        <div
+          contentEditable="true"
+          datatype="content"
           className="resize-none text-middlFontSize border border-b-2 h-2/3 pt-6 pl-6"
           placeholder="내용을 입력하세요!"
-        ></textarea>
+        ></div> */}
         <div>
           <button className="border p-6 mt-3">출간하기</button>
         </div>
