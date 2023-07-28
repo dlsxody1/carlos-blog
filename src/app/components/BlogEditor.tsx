@@ -18,13 +18,7 @@ const BlogEditor = ({ htmlStr, setHtmlStr }: IEditor) => {
   };
 
   const toolbarSTyle = {};
-  const toolbar = {
-    list: { inDropdown: true },
-    textAlign: { inDropdown: true },
-    link: { inDropdown: true },
-    history: { inDropdown: false },
-  };
-
+  const toolbar = {};
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   useEffect(() => {
     const blocksFromHtml = htmlToDraft(htmlStr);
@@ -73,7 +67,6 @@ const BlogEditor = ({ htmlStr, setHtmlStr }: IEditor) => {
       toolbarStyle={toolbarSTyle}
       onEditorStateChange={onEditorStateChange}
       editorState={editorState}
-      toolbar={toolbar}
     />
   );
 };
