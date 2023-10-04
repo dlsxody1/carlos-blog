@@ -1,10 +1,11 @@
 "use client";
 import BlogEditor from "@/app/components/BlogEditor";
 import { MemoizedEditorViewer } from "@/app/components/EditorViewer";
-import { MemoizedTitleViewer } from "@/app/components/TItleViewer";
+import { MemoizedTitleViewer } from "@/app/components/TitleViewer";
 import { CategoryProps } from "@/app/types/InputValueProps";
-import React, { useEffect, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { supabase } from "@/app/lib/supabase";
 
 const Page = () => {
   const [category, setCategory] = useState("");
@@ -13,6 +14,9 @@ const Page = () => {
   const [htmlStr, setHtmlStr] = useState<string>("");
   const viewContainerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
+  const { auth } = supabase;
+  const session = auth.getSession();
+  console.log(session);
   // useEffect(() => {
 
   //  if(titleRef.current){
@@ -25,6 +29,18 @@ const Page = () => {
   //     viewContainerRef.current.innerHTML += htmlStr;
   //   }
   // }, [htmlStr]);
+  const addArticle = async (
+    title: string,
+    content: string,
+    category: CategoryProps[]
+  ) => {
+    const { data: article } = await supabase.from("article").insert({
+      title,
+      content: htmlStr,
+      category: categories,
+    });
+    return article;
+  };
 
   const addCategory = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -34,19 +50,23 @@ const Page = () => {
     }
   };
 
-  const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
     console.log(title);
   };
+
   return (
     <div className="flex">
-      <div className="flex flex-col w-1/2 h-screenHeight ">
-        <textarea
+      <form
+        className="flex flex-col w-1/2 h-screenHeight"
+        //onSubmit={addArticle(title,htmlStr, categories)}
+      >
+        <input
           className="border border-b-2 h-32 text-titleFontSize mb-8 resize-none pt-6 pl-6 font-black"
           placeholder="제목"
           name="title"
           onChange={onChangeText}
-        ></textarea>
+        ></input>
         <input
           className="h-16  pl-6 text-middlFontSize"
           type="text"
@@ -75,7 +95,7 @@ const Page = () => {
         <div>
           <button className="border p-6 mt-3">출간하기</button>
         </div>
-      </div>
+      </form>
       <div className="flex flex-col border-1-2 border w-1/2 h-screenHeight  border border-">
         <MemoizedTitleViewer title={title} />
 

@@ -2,8 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
-import { ContentState, convertToRaw, EditorState } from "draft-js";
+import {
+  ContentState,
+  convertFromRaw,
+  convertToRaw,
+  EditorState,
+} from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 
@@ -32,25 +36,7 @@ const BlogEditor = ({ htmlStr, setHtmlStr }: IEditor) => {
       setEditorState(editorState);
     }
   }, []);
-  /**
-   * https://jforj.tistory.com/213
-   * image를 관리하는 도메인을 만들어야함.
-   */
-  //   const uploadCallback = (file: Blob) => {
-  //     return new Promise((resolve, reject) => {
-  //         const reader = new FileReader();
 
-  //         reader.onloadend = async () => {
-  //             const formData = new FormData();
-  //             formData.append("multipartFiles", file);
-  //             const res = await axios.post('http://localhost:8080/uploadImage', formData);
-
-  //             resolve({ data: { link: res.data } });
-  //         };
-
-  //         reader.readAsDataURL(file);
-  //     });
-  // };
   const onEditorStateChange = (editorState: EditorState) => {
     setEditorState(editorState);
     setHtmlStr(draftToHtml(convertToRaw(editorState.getCurrentContent())));

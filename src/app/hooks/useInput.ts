@@ -1,28 +1,30 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
 import { ManagerProps, CategoryProps } from "../types/InputValueProps";
-import { redirect } from "next/navigation";
-import { useRouter } from "next/router";
-import { type } from "os";
+import { redirect, useRouter } from "next/navigation";
 
 export async function signInWithEmail(managerIntfo: ManagerProps) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const router = useRouter();
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: managerIntfo.email,
       password: managerIntfo.password,
     });
-    console.log("redirect 해볼게 얍");
+    console.log(data);
+    router.push("/write");
   } catch (err) {
     alert(err);
   }
 }
 
-export const useInput = (state: ManagerProps | CategoryProps) => {
+export const useInput = (state: ManagerProps) => {
   const [values, setValues] = useState(state);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
+    console.log();
     // 조건부를 넣어볼 것.
     // if(typeof state === "string"){
     //   setValues(e.target.value);
@@ -36,15 +38,10 @@ export const useInput = (state: ManagerProps | CategoryProps) => {
     console.log(values);
   };
 
-  const onSubmit = (
-    e: React.FormEvent<HTMLFormElement>,
-    url: string,
-    state: ManagerProps
-  ) => {
+  const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (url.includes("login")) {
-      signInWithEmail(state);
-    }
+
+    signInWithEmail(values);
   };
   return { values, onChange, onSubmit };
 };

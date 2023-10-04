@@ -21,10 +21,7 @@ const Page = () => {
         <div className="font-bold text-center text-largeFontSize p-3">
           관리자가 아니라면 .. 나가주세요
         </div>
-        <form
-          className="text-center"
-          onSubmit={(e) => onSubmit(e, currentUrl, values)}
-        >
+        <form className="text-center">
           <div className="w-4/5 text-center border  m-24">
             <label className="mr-5 text-middlFontSize">ID</label>
             <input
@@ -45,7 +42,12 @@ const Page = () => {
               name="password"
             />
           </div>
-          <button className="border text-middlFontSize p-4 w-40">로그인</button>
+          <button
+            onClick={(e) => onSubmit(e)}
+            className="border text-middlFontSize p-4 w-40"
+          >
+            로그인
+          </button>
         </form>
       </div>
     </div>

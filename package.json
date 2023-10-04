@@ -11,6 +11,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@material-tailwind/react": "^2.1.1",
     "@mdx-js/loader": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
     "@next/mdx": "^13.4.9",

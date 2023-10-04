@@ -23,7 +23,7 @@ const Nav = () => {
     <nav
       className={`${
         navToggle ? "hidden" : "block"
-      } h-screenHeight w-96 bg-slate-500 flex justify-center pt-12 `}
+      } h-screenHeight w-96 bg-blue-gray-500 flex justify-center pt-12 `}
     >
       <div className="bg-white border border-red-300 w-72 h-navHeight flex flex-col sticky top-0">
         <div className="h-11 bg-red-300 text-xl pl-3 pt-1 text-left">
