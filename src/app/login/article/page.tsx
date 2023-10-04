@@ -11,7 +11,6 @@ const Page = () => {
 
   return (
     <>
-      <Header type="article" event={() => router.push(`${pathname}/write`)} />
       <ArticleList />;
     </>
   );

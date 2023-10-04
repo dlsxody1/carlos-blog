@@ -57,7 +57,7 @@ const Page = () => {
 
   return (
     <div className="flex">
-      <form
+      <div
         className="flex flex-col w-1/2 h-screenHeight"
         //onSubmit={addArticle(title,htmlStr, categories)}
       >
@@ -66,7 +66,7 @@ const Page = () => {
           placeholder="제목"
           name="title"
           onChange={onChangeText}
-        ></input>
+        />
         <input
           className="h-16  pl-6 text-middlFontSize"
           type="text"
@@ -95,7 +95,7 @@ const Page = () => {
         <div>
           <button className="border p-6 mt-3">출간하기</button>
         </div>
-      </form>
+      </div>
       <div className="flex flex-col border-1-2 border w-1/2 h-screenHeight  border border-">
         <MemoizedTitleViewer title={title} />
 

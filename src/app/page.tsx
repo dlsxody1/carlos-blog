@@ -1,12 +1,18 @@
-import { Header } from "@/stories/Header";
-import Input from "@/stories/Input";
-import Image from "next/image";
-import { HiMagnifyingGlass } from "react-icons/hi2";
-import Article from "./components/ArticleList";
+"use client";
+import ArticleCard from "./components/ArticleCard";
 
 export default function Home() {
-  /**
-   * Article을 등록한다
-   */
-  return <></>;
+  return (
+    <>
+      <div className="p-20 ">
+        <div className="text-middlFontSize mb-16">최근에 올라온 글</div>
+        <div className="flex mt-5 ">
+          {/* 캐러셀 추가 */}
+          <ArticleCard />
+          <ArticleCard />
+          <ArticleCard />
+        </div>
+      </div>
+    </>
+  );
 }

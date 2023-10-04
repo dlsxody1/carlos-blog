@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={KR.className}>
-        <Header type="nav" />
+        <Header />
         <div className="flex">
           <Nav />
           <Providers>{children}</Providers>
