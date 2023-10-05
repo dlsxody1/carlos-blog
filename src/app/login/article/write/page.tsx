@@ -1,11 +1,16 @@
 "use client";
-import BlogEditor from "@/app/components/BlogEditor";
+import dynamic from "next/dynamic";
 import { MemoizedEditorViewer } from "@/app/components/EditorViewer";
 import { MemoizedTitleViewer } from "@/app/components/TitleViewer";
 import { CategoryProps } from "@/app/types/InputValueProps";
 import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { supabase } from "@/app/lib/supabase";
+import { useRouter } from "next/navigation";
+
+const BlogEditor = dynamic(() => import("@/app/components/BlogEditor"), {
+  ssr: false,
+});
 
 const Page = () => {
   const [category, setCategory] = useState("");
@@ -14,32 +19,21 @@ const Page = () => {
   const [htmlStr, setHtmlStr] = useState<string>("");
   const viewContainerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
-  const { auth } = supabase;
-  const session = auth.getSession();
-  console.log(session);
-  // useEffect(() => {
+  const router = useRouter();
 
-  //  if(titleRef.current){
-  //  titleRef.current.inn....
-  //}....
-  //
-  //   if (viewContainerRef.current) {
-  //     viewContainerRef.current.innerHTML =
-  //       "<p>html 코드를 이용하여 만들어진 코드</p>";
-  //     viewContainerRef.current.innerHTML += htmlStr;
-  //   }
-  // }, [htmlStr]);
-  const addArticle = async (
-    title: string,
-    content: string,
-    category: CategoryProps[]
-  ) => {
-    const { data: article } = await supabase.from("article").insert({
-      title,
-      content: htmlStr,
-      category: categories,
-    });
-    return article;
+  const addArticle = async () => {
+    try {
+      const { data: article } = await supabase.from("article").insert({
+        title,
+        content: htmlStr,
+        category: categories,
+      });
+      alert("출간이 완료되었습니다.");
+      router.push("/");
+      return article;
+    } catch (err) {
+      alert(err);
+    }
   };
 
   const addCategory = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -93,7 +87,13 @@ const Page = () => {
         </div>
 
         <div>
-          <button className="border p-6 mt-3">출간하기</button>
+          <button
+            type="button"
+            onClick={() => addArticle()}
+            className="border p-6 mt-3"
+          >
+            출간하기
+          </button>
         </div>
       </div>
       <div className="flex flex-col border-1-2 border w-1/2 h-screenHeight  border border-">

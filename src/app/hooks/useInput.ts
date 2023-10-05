@@ -11,7 +11,7 @@ export async function signInWithEmail(managerIntfo: ManagerProps) {
       email: managerIntfo.email,
       password: managerIntfo.password,
     });
-    console.log(data);
+    console.log(data, "data");
     router.push("/write");
   } catch (err) {
     alert(err);
@@ -24,17 +24,6 @@ export const useInput = (state: ManagerProps) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
-    console.log();
-    // 조건부를 넣어볼 것.
-    // if(typeof state === "string"){
-    //   setValues(e.target.value);
-    // }else if("email" in state && "password" in state){
-    //   setValues((prevValues) => ({
-    //     ...prevValues,
-    //     [name]: value,
-    //   }));
-    // }
-
     console.log(values);
   };
 

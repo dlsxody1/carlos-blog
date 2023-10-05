@@ -4,10 +4,12 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
+import { PostgrestSingleResponse } from "@supabase/supabase-js";
 import Link from "next/link";
 import React from "react";
+import { ArticleProps } from "../types/ArticleProps";
 
-const ArticleCard = () => {
+const ArticleCard = ({ id, createdAt, content, title }: ArticleProps) => {
   return (
     <Link href="/">
       <Card className="mt-6 ml-6 w-96 transform hover:scale-105 hover:shadow-lg transition-transform duration-300">
