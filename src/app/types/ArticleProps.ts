@@ -6,4 +6,5 @@ export interface ArticleProps {
   title: string;
   content: string;
   catagory: CategoryProps[];
+  image_url?: string;
 }
