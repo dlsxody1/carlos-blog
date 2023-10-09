@@ -16,9 +16,10 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="p-3">
-      <div className="text-largeFontSize">{data?.data?.title}</div>
-      <div className="text-sm text-gray-400">{formattedDate}</div>
+      <div className="text-largeFontSize mt">{data?.data?.title}</div>
+      <div className="text-middlFontSize text-gray-400">{formattedDate}</div>
       <div
+        className="mt-11"
         dangerouslySetInnerHTML={{ __html: data?.data?.content as string }}
       ></div>
     </div>

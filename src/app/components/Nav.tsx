@@ -1,53 +1,157 @@
 "use client";
-import React, { useState } from "react";
-import { GoChevronDown } from "react-icons/go";
-import { supabase } from "../lib/supabase";
+import React from "react";
+import {
+  Card,
+  Typography,
+  List,
+  ListItem,
+  ListItemPrefix,
+  ListItemSuffix,
+  Chip,
+  Accordion,
+  AccordionHeader,
+  AccordionBody,
+} from "@material-tailwind/react";
+import {
+  PresentationChartBarIcon,
+  ShoppingBagIcon,
+  UserCircleIcon,
+  Cog6ToothIcon,
+  InboxIcon,
+  PowerIcon,
+} from "@heroicons/react/24/solid";
+import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 
-interface NavProps {
-  toggle: boolean;
-  className: string;
-}
-/*
- TODO : Navigation 깜빡거리는 것 수정하려고 노력해보자.
- ReactQuery에서 데이터를 받아서 Nav에 업데이트하자.
-categoryToggle object 형식으로 바꿔야 여러 카테고리를 토글 할 수 있음.
-*/
-const Nav = () => {
-  const [navToggle, setNavToggle] = useState(false);
-  const [categoryToggle, setCategoryToggle] = useState(false);
-  const categoryToggleClick = () => {
-    setCategoryToggle((prev) => !prev);
+export const Nav = () => {
+  const [open, setOpen] = React.useState(0);
+
+  const handleOpen = (value: any) => {
+    setOpen(open === value ? 0 : value);
   };
-  // const { data: article } = await supabase.from("article").select("*");
+
   return (
-    <nav
-      className={`${
-        navToggle ? "hidden" : "block"
-      } h-screenHeight w-96 bg-blue-gray-500 flex justify-center pt-12 `}
-    >
-      <div className="bg-white border border-red-300 w-72 h-navHeight flex flex-col sticky top-0">
-        <div className="h-11 bg-red-300 text-xl pl-3 pt-1 text-left">
-          카테고리 x1
-        </div>
-        {/* 이것은 map을 돌린다. */}
-        <div className="text-left pl-6 pt-1 border border-b-red-300 flex flex-col">
-          <div>
-            <div className="flex items-center">
-              <GoChevronDown
-                className="mr-3 cursor-pointer hover:text-red-400"
-                onClick={categoryToggleClick}
-              />
-              메인 카테고리 예를들면 react{" "}
-            </div>
-            <ul className={`${categoryToggle ? "block" : "hidden"}`}>
-              <li className="hover:text-purple-400">suspension</li>
-              <li className="hover:text-purple-400">suspension</li>
-            </ul>
-          </div>
-        </div>
+    <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+      <div className="mb-2 p-4">
+        <Typography variant="h5" color="blue-gray">
+          Sidebar
+        </Typography>
       </div>
-    </nav>
+      <List>
+        <Accordion
+          open={open === 1}
+          icon={
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`mx-auto h-4 w-4 transition-transform ${
+                open === 1 ? "rotate-180" : ""
+              }`}
+            />
+          }
+        >
+          <ListItem className="p-0" selected={open === 1}>
+            <AccordionHeader
+              onClick={() => handleOpen(1)}
+              className="border-b-0 p-3"
+            >
+              <ListItemPrefix>
+                <PresentationChartBarIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              <Typography color="blue-gray" className="mr-auto font-normal">
+                Dashboard
+              </Typography>
+            </AccordionHeader>
+          </ListItem>
+          <AccordionBody className="py-1">
+            {/* map 돌려서 게시물 갯수, 등을 반복문으로 표현할 것. */}
+            <List className="p-0">
+              <ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+                Javascript
+                <ListItemSuffix>
+                  <Chip
+                    value="15"
+                    size="sm"
+                    variant="ghost"
+                    color="blue-gray"
+                    className="rounded-full"
+                  />
+                </ListItemSuffix>
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+                Reporting
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+                Projects
+              </ListItem>
+            </List>
+          </AccordionBody>
+        </Accordion>
+        <Accordion
+          open={open === 2}
+          icon={
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`mx-auto h-4 w-4 transition-transform ${
+                open === 2 ? "rotate-180" : ""
+              }`}
+            />
+          }
+        >
+          <ListItem className="p-0" selected={open === 2}>
+            <AccordionHeader
+              onClick={() => handleOpen(2)}
+              className="border-b-0 p-3"
+            >
+              <ListItemPrefix>
+                <ShoppingBagIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              <Typography color="blue-gray" className="mr-auto font-normal">
+                E-Commerce
+              </Typography>
+            </AccordionHeader>
+          </ListItem>
+          <AccordionBody className="py-1">
+            <List className="p-0">
+              <ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+                Orders
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+                Products
+              </ListItem>
+            </List>
+          </AccordionBody>
+        </Accordion>
+        <ListItem>
+          <ListItemPrefix>
+            <InboxIcon className="h-5 w-5" />
+          </ListItemPrefix>
+          Inbox
+          <ListItemSuffix>
+            {/* 게시물 갯수 chip으로 표현 */}
+            <Chip
+              value="14"
+              size="sm"
+              variant="ghost"
+              color="blue-gray"
+              className="rounded-full"
+            />
+          </ListItemSuffix>
+        </ListItem>
+      </List>
+    </Card>
   );
 };
-
-export default Nav;
