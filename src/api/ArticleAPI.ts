@@ -23,3 +23,13 @@ export const getArticleById = async (id: string) => {
   //return 할 때 오브젝트 형태로 넘겨야함 {aritcle, imageUrl}
   return article;
 };
+
+export const uploadImage = async (path: string, file: string) => {
+  const { data } = await supabase.storage.from("blog-image").upload(path, file);
+  return data;
+};
+
+export const getSession = async () => {
+  const { data } = await supabase.auth.getSession();
+  return data;
+};

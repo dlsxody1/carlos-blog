@@ -1,4 +1,6 @@
 import "./globals.css";
+import "../css/quill-custom-css.css";
+
 import { Noto_Sans_KR } from "next/font/google";
 import Header from "./components/Header";
 import Providers from "./provider";
@@ -15,8 +17,10 @@ export default function RootLayout({
       <body className={KR.className}>
         <Header />
         <div className="flex">
+          
+          <Providers>
           <Nav />
-          <Providers>{children}</Providers>
+            {children}</Providers>
         </div>
       </body>
     </html>

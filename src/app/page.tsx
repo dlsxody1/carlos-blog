@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 export default function Home() {
+  
   const { data, isLoading } = useQuery<PostgrestSingleResponse<
     ArticleProps[]
   > | null>(["article"], getArticle);

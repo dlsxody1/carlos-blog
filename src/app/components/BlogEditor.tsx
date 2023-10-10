@@ -1,58 +1,93 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import {
-  ContentState,
-  convertFromRaw,
-  convertToRaw,
-  EditorState,
-} from "draft-js";
-import draftToHtml from "draftjs-to-html";
-import htmlToDraft from "html-to-draftjs";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "@/css/quill-custom-css.css";
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import { uploadImage } from "@/api/ArticleAPI";
 
-interface IEditor {
+const BlogEditor = ({
+  htmlStr,
+  setHtmlStr,
+}: {
   htmlStr: string;
   setHtmlStr: React.Dispatch<React.SetStateAction<string>>;
-}
+}) => {
+  const quillRef = useRef(null);
+  const imageHandler = useCallback(() => {
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.setAttribute("name", "image");
+    input.click();
 
-const BlogEditor = ({ htmlStr, setHtmlStr }: IEditor) => {
-  const editorStyle = {
-    height: "700px",
-  };
+    input.onchange = async () => {
+      if (!input.files || input.files.length === 0) return;
+      const file = input.files[0];
+      const fileName = new Date().getTime().toString();
+      console.log(file, fileName);
+      // const result = await uploadImage(
+      //   `contents/${auth.user?.id}/${fileName}.png`,
+      //   file,
+      // )
 
-  const toolbarSTyle = {};
-  const toolbar = {};
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  useEffect(() => {
-    const blocksFromHtml = htmlToDraft(htmlStr);
-    if (blocksFromHtml) {
-      const { contentBlocks, entityMap } = blocksFromHtml;
-      const contentState = ContentState.createFromBlockArray(
-        contentBlocks,
-        entityMap
-      );
-      const editorState = EditorState.createWithContent(contentState);
-      setEditorState(editorState);
-    }
-  }, []);
+      // const url = `https://ycuajmirzlqpgzuonzca.supabase.co/storage/v1/object/public/artinfo/${
+      //   result.data!.path
+      // }`
+      // const quill = quillRef?.current?.getEditor()
+      // const range = quill.getSelection()?.index
+      // if (typeof range !== "number") return
+      // quill.setSelection(range, 1)
 
-  const onEditorStateChange = (editorState: EditorState) => {
-    setEditorState(editorState);
-    setHtmlStr(draftToHtml(convertToRaw(editorState.getCurrentContent())));
-  };
+      // quill.clipboard.dangerouslyPasteHTML(
+      //   range,
+      //   `<img src=${url} alt="image" />`,
+      // )
+    };
+  }, [quillRef]);
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: "1" }, { header: "2" }],
+          [{ size: [] }],
+          ["bold", "italic", "underline", "strike", "blockquote"],
+          [{ list: "ordered" }, { list: "bullet" }, { align: [] }],
+          ["image"],
+        ],
+        //handlers: { image: imageHandler },
+      },
+      clipboard: {
+        matchVisual: false,
+      },
+    }),
+    []
+  );
+
+  const formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "align",
+    "image",
+  ];
 
   return (
-    <Editor
-      localization={{
-        locale: "ko",
-      }}
-      wrapperClassName="wrapper-class"
-      editorClassName="editor-class"
-      editorStyle={editorStyle}
-      toolbarStyle={toolbarSTyle}
-      onEditorStateChange={onEditorStateChange}
-      editorState={editorState}
+    <ReactQuill
+      ref={quillRef}
+      onChange={setHtmlStr}
+      modules={modules}
+      formats={formats}
+      value={htmlStr || ""}
+      placeholder={"작성할 내용을 입력해주세요!"}
+      theme="snow"
     />
   );
 };
