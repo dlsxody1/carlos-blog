@@ -23,7 +23,6 @@ export const useInput = (state: ManagerProps) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
-    console.log(values);
   };
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {

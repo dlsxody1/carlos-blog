@@ -2,18 +2,33 @@
 import ArticleList from "@/app/components/ArticleList";
 import Header from "@/app/components/Header";
 import { usePath } from "@/app/hooks/usePath";
-import React from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { getSession } from "@/api/ArticleAPI";
+import { SessionProps } from "@/app/types/SessionProps";
+import { supabase } from "@/app/lib/supabase";
+import { Session } from "@supabase/supabase-js";
 
 const Page = () => {
-  // const session = await getSession();
-  // console.log(session);
-  //무한루프 이슈
+  const [sessionData, setSessionData] = useState<
+    { session: Session } | { session: null }
+  >();
+  const router = useRouter();
+  useEffect(() => {
+    getSession().then((session) => {
+      setSessionData(session);
+    });
+  }, []);
 
   return (
     <>
-      <ArticleList />{" "}
+      {sessionData?.session?.access_token.length === undefined ? (
+        "nothing"
+      ) : (
+        <>
+          <ArticleList sessionData={sessionData?.session?.access_token} />
+        </>
+      )}
     </>
   );
 };

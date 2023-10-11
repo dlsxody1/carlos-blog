@@ -7,9 +7,22 @@ import { PostgrestSingleResponse } from "@supabase/supabase-js";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper/modules";
+
+{
+  /* <Swiper
+          cssMode={true}
+          navigation={true}
+          pagination={true}
+          modules={[Pagination, Navigation, Mousewheel, Keyboard]}
+          slidesPerView={3}
+          onSlideChange={() => console.log("slide change")}
+        > */
+}
 
 export default function Home() {
-  
   const { data, isLoading } = useQuery<PostgrestSingleResponse<
     ArticleProps[]
   > | null>(["article"], getArticle);
@@ -18,25 +31,15 @@ export default function Home() {
     <>
       <div className="p-20 ">
         <div className="text-middlFontSize mb-16">최근에 올라온 글</div>
-        <div className="flex mt-5 "></div>
-        {/* 캐러셀 추가 */}
-        <Swiper
-          slidesPerView={3}
-          spaceBetween={50}
-          onSlideChange={() => console.log("slide change")}
-        >
+        <div className="flex mt-5 ">
+          {/* 캐러셀 추가 */}
+
           {isLoading
             ? "loading 중입니다"
             : data?.data?.map((articleInfo) => {
-                return (
-                  <SwiperSlide key={articleInfo.id}>
-                    <Link prefetch={false} href={`/article/${articleInfo.id}`}>
-                      <ArticleCard articleInfo={articleInfo} />
-                    </Link>
-                  </SwiperSlide>
-                );
+                return <ArticleCard articleInfo={articleInfo} />;
               })}
-        </Swiper>
+        </div>
       </div>
     </>
   );
