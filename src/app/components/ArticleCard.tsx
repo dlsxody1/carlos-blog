@@ -7,6 +7,7 @@ import {
 import React from "react";
 import { ArticleProps } from "../types/ArticleProps";
 import Link from "next/link";
+import Image from "next/image";
 
 const ArticleCard = (articleInfo: { articleInfo: ArticleProps }) => {
   let content = articleInfo.articleInfo.content.replace(/<[^>]*>|&nbsp;/g, "");
@@ -15,7 +16,7 @@ const ArticleCard = (articleInfo: { articleInfo: ArticleProps }) => {
     <Card className="mt-6 ml-6 w-96  transform hover:scale-105 hover:shadow-lg transition-transform duration-300">
       <Link prefetch={false} href={`/article/${articleInfo?.articleInfo?.id}`}>
         <CardHeader color="blue-gray" className="relative h-56">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
             alt="card-image"
           />

@@ -37,7 +37,13 @@ export default function Home() {
           {isLoading
             ? "loading 중입니다"
             : data?.data?.map((articleInfo) => {
-                return <ArticleCard articleInfo={articleInfo} />;
+                return (
+                  <>
+                    <div key={articleInfo.id}>
+                      <ArticleCard articleInfo={articleInfo} />;
+                    </div>
+                  </>
+                );
               })}
         </div>
       </div>

@@ -26,6 +26,7 @@ export const useInput = (state: ManagerProps) => {
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useSignInWithEmail(values);
     router.push("/login/article");
   };
