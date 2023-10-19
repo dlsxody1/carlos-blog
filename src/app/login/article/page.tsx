@@ -15,9 +15,10 @@ const Page = () => {
   >();
   const router = useRouter();
   useEffect(() => {
-    getSession().then((session) => {
+    getSession().then((session : any) => {
       setSessionData(session);
     });
+    console.log('how have you been')
   }, []);
 
   return (

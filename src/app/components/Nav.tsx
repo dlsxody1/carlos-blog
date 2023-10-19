@@ -37,7 +37,6 @@ export const Nav = () => {
   //1. DB를 4번 호출해서 (DB에 select * from article where category = 'javascript' 에 해당하는 데이터를 불러온다.
   //2. 받은 데이터의 게시물들의 카테고리를 확인 후 ... 어떻게 매칭시키지?
   //3. 카테고리가 javascript인 것도 count 해야함...
-  console.log(data);
 
   {
     stacks.map((stack, i) => {
