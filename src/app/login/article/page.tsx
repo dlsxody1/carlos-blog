@@ -9,27 +9,23 @@ import { SessionProps } from "@/app/types/SessionProps";
 import { supabase } from "@/app/lib/supabase";
 import { Session } from "@supabase/supabase-js";
 
-const Page = () => {
-  const [sessionData, setSessionData] = useState<
-    { session: Session } | { session: null }
-  >();
-  const router = useRouter();
-  useEffect(() => {
-    getSession().then((session : any) => {
-      setSessionData(session);
-    });
-    console.log('how have you been')
-  }, []);
-
+const Page = ({ session }: { session: string }) => {
+  console.log(session);
+  navigator.geolocation.getCurrentPosition(function (pos) {
+    console.log(pos);
+    var latitude = pos.coords.latitude;
+    var longitude = pos.coords.longitude;
+    alert("현재 위치는 : " + latitude + ", " + longitude);
+  });
   return (
     <>
-      {sessionData?.session?.access_token.length === undefined ? (
+      {/* {sessionData?.session?.access_token.length === undefined ? (
         "nothing"
       ) : (
         <>
           <ArticleList sessionData={sessionData?.session?.access_token} />
         </>
-      )}
+      )} */}
     </>
   );
 };

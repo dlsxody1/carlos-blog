@@ -31,6 +31,7 @@ export const Nav = () => {
     ["article"],
     getArticle
   );
+  console.log(data);
 
   const stacks = ["Javascript", "CSS", "React", "DevOps"];
 

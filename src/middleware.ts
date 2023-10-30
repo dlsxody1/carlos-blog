@@ -5,14 +5,16 @@ import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   const supabase = createMiddlewareClient({ req, res });
+  
   if (req.nextUrl.pathname.startsWith("/login/article")) {
+    
     const { data } = await supabase.auth.getSession();
-    console.log(data.session);
+    console.log(data.session, "session data");
     if (data.session === null) {
       // return NextResponse.redirect(new URL("/", req.url));
     } else {
       console.log("로그인 되었습니다.");
-      return data.session;
+      return NextResponse.json({ session: data.session });
     }
   }
 }

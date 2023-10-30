@@ -9,7 +9,7 @@ export async function useSignInWithEmail(managerIntfo: ManagerProps) {
       email: managerIntfo.email,
       password: managerIntfo.password,
     });
-
+    console.log("로그인 성공", data);
     return data;
   } catch (err) {
     alert(err);

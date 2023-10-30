@@ -30,6 +30,7 @@
     }
   },
   //vscode에서 렉이 심할 때는 exclude에 .next를 추가해보자
+  // ".next/types/**/*.ts" include
   "include": [
     "next-env.d.ts",
     "**/*.ts",
